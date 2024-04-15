@@ -189,11 +189,6 @@ h2 {
   z-index: 1;
 }
 
-@media (min-width: 768px) {
-  .Newcarousel .slide {
-    height: 600px;
-  }
-}
 
 .Newcarousel .slide-background {
   position: absolute;
@@ -216,3 +211,8 @@ h2 {
 .Newcarousel .title, .Newcarousel .description, .Newcarousel .additional-info {
   color: #fff;
 }
+
+
+
+
+

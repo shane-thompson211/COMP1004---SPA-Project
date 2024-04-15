@@ -66,10 +66,30 @@
 <div id="newCarouselContainer">
     <div id="currentlyShowcasingCarousel" class="Newcarousel"></div>
 </div>
+<!-- Placeholder for the Modal -->
+<div id="movieDetailsModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Movie Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Movie details will go here -->
+        </div>
+        <div class="modal-footer">
+            <button id="shareButton" class="btn btn-primary">Share</button>
 
-
-   
-
+          <!-- Additional details like cast, director, writers, and genres -->
+        </div>
+      </div>
+    </div>
+  </div>
+    <div id="content">
+        <!-- Content will be dynamically loaded here -->
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
