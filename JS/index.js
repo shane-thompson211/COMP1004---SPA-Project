@@ -290,6 +290,100 @@ function populateGenres() {
   }).catch(error => console.error('Error:', error)); // Catches and logs any errors in the process.
 }
 
+// Function to display media (movies and TV shows) based on a specific genre
+function showGenre(genreId) {
+  // Access the 'content' and 'carouselContainer' elements from the DOM
+  const content = document.getElementById('content');
+  const carouselContainer = document.getElementById('newCarouselContainer');
+
+  // Clear existing content and hide the carousel (used on other pages)
+  content.innerHTML = '';
+  carouselContainer.style.display = 'none';
+
+  // Create containers within 'content' for movies, TV shows, and error messages
+  const movieContainer = content.appendChild(createElement('div', {id: 'movieContainer'}));
+  const tvShowContainer = content.appendChild(createElement('div', {id: 'tvShowContainer'}));
+  const errorContainer = content.appendChild(createElement('div', {id: 'errorContainer'}));
+
+  // Initialize variables for pagination and loading state
+  let [moviePage, tvShowPage, isLoading] = [1, 1, false];
+
+  // Scroll handler to load more items as the user scrolls to the bottom of the page
+  const handleScroll = () => {
+    const {scrollTop, scrollHeight} = document.documentElement;
+    if (window.innerHeight + scrollTop >= scrollHeight - 100 && !isLoading) {
+      fetchMoviesAndTVShows();
+    }
+  };
+
+  // Function to fetch movies and TV shows by genre from the API
+  function fetchMoviesAndTVShows() {
+    isLoading = true; // Set loading state to prevent multiple concurrent requests
+
+    // Construct URL queries for fetching movies and TV shows by genre, using API keys and sorting by vote count
+    const urls = [
+      `${BASE_URL}/discover/movie?with_genres=${genreId}&${API_KEY}&page=${moviePage}&sort_by=vote_count.desc`,
+      `${BASE_URL}/discover/tv?with_genres=${genreId}&${API_KEY}&page=${tvShowPage}&sort_by=vote_count.desc`
+    ];
+
+    // Fetch both movies and TV shows data concurrently
+    Promise.all(urls.map(fetchJson)).then(([movieData, tvShowData]) => {
+      // Create and append movie cards to the movie container
+      movieData.results.forEach(movie => {
+        const movieCard = createCard(movie, 'Movie');
+        movieContainer.appendChild(movieCard);
+      });
+
+      // Create and append TV show cards to the TV show container
+      tvShowData.results.forEach(tvShow => {
+        const tvShowCard = createCard(tvShow, 'TV Show');
+        tvShowContainer.appendChild(tvShowCard);
+      });
+
+      // Update pagination if more pages are available
+      moviePage += movieData.page < movieData.total_pages ? 1 : 0;
+      tvShowPage += tvShowData.page < tvShowData.total_pages ? 1 : 0;
+      isLoading = false; // Reset loading state
+    }).catch(error => {
+      // Handle errors and update the error container with a message
+      console.error(error);
+      errorContainer.innerText = 'Failed to load content. Please try again later.';
+      isLoading = false;
+    });
+  }
+
+  // Attach the scroll event listener and trigger the initial fetch of data
+  window.addEventListener('scroll', handleScroll);
+  fetchMoviesAndTVShows();
+}
+
+function createCard(item, mediaType) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const rating = item.vote_average.toFixed(1); // Format rating to one decimal place
+  const ratingColor = getRatingColor(item.vote_average);
+
+  card.innerHTML = `
+    <div class="poster-wrapper">
+      <img src="${IMG_URL + item.poster_path}" alt="${item.title || item.name}" class="media-poster">
+      <div class="media-type-label" style="background-color: ${mediaType === 'Movie' ? '#E50914' : '#221f1f'};">${mediaType}</div>
+      <div class="rating-label" style="background-color: ${ratingColor};">${rating}</div>
+    </div>
+    <div class="descriptions">
+      <h1>${item.title || item.name}</h1>
+      <p>${item.overview}</p>
+    </div>
+  `;
+
+  // Optional: Add any event listeners if needed, e.g., for displaying more details
+  card.addEventListener('click', () => {
+    showMovieDetails(item.id, mediaType.toLowerCase());
+  });
+
+  return card;
+}
+
 // Function to display the home page content
 function showHomePage() {
   // Access the 'content' and 'carouselContainer' elements from the DOM
