@@ -26,6 +26,12 @@ async function fetchCurrentlyShowcasingMovies() {
   }
 }
 
+function getRatingColor(vote_average) {
+  if (vote_average >= 7) return 'green';
+  else if (vote_average >= 5) return 'yellow';
+  else return 'red';
+}
+
 // Creates a poster carousel in the 'currentlyShowcasingCarousel' container.
 function createPosterCarousel(items) {
   const carouselContainer = document.getElementById('currentlyShowcasingCarousel');
@@ -66,15 +72,26 @@ function createCarousel(title, items) {
   const carouselContainer = document.createElement('div');
   carouselContainer.classList.add('carousel');
   carouselContainer.setAttribute('id', 'carouselContainer');
+
   const heading = document.createElement('h2');
   heading.textContent = title;
   content.appendChild(heading);
+
   items.forEach(item => {
     const slide = document.createElement('div');
     slide.classList.add('slide', 'poster-container');
     slide.setAttribute('data-id', item.id);
+
+    // Media type and rating logic
+    const mediaType = item.title ? 'Movie' : 'TV Show';
+    const rating = item.vote_average.toFixed(1); // Format rating to one decimal place
+    const ratingColor = getRatingColor(item.vote_average);
+
+    // Inner HTML setup, including an overlay div for the rating and media type
     slide.innerHTML = `
       <div class="image-overlay">
+        <div class="media-type-label">${mediaType}</div>
+        <div class="rating-label" style="background-color: ${ratingColor};">${rating}</div>
         <img src="${IMG_URL + item.poster_path}" alt="${item.title || item.name}" class="movie-poster">
       </div>
       <div class="descriptions">
@@ -83,12 +100,12 @@ function createCarousel(title, items) {
       </div>
     `;
     carouselContainer.appendChild(slide);
-    // Adds event listeners for clicks on the slide to show detailed information.
-    slide.addEventListener('click', function() {
-      showMovieDetails(item.id, item.title ? 'movie' : 'tv');
-    });
+
+    
   });
+
   content.appendChild(carouselContainer);
+
   // Configures responsive settings for different screen sizes using Slick Carousel.
   $(carouselContainer).slick({
     infinite: true,
@@ -109,7 +126,6 @@ function createCarousel(title, items) {
     ]
   });
 }
-
 // Fetches media data based on type and sort order, then creates a carousel display.
 function fetchMediaAndCreateCarousel(mediaType, sortBy, title) {
   // Optionally reads a sort value from a select element or uses the provided default.
@@ -200,7 +216,7 @@ function fetchAllMedia(mediaType, apiUrl) {
 
           // Format the rating to one decimal place and determine the color based on the rating
           const rating = item.vote_average.toFixed(1);
-         
+          const ratingColor = getRatingColor(item.vote_average);
 
           // Set labels and colors depending on the media type
           const typeLabel = mediaType === 'movie' ? 'Movie' : 'TV Show';
@@ -209,8 +225,8 @@ function fetchAllMedia(mediaType, apiUrl) {
           // Populate the media card with HTML content including image and text descriptions
           mediaCard.innerHTML = `
               <div class="poster-wrapper">
-                 
-                  
+                  <div class="media-type-label" style="background-color: ${typeLabelColor};">${typeLabel}</div>
+                  <div class="rating-label" style="background-color: ${ratingColor};">${rating}</div>
                   <img src="${IMG_URL + item.poster_path}" alt="${item.title || item.name}" class="media-poster">
               </div>
               <div class="descriptions">
@@ -220,11 +236,7 @@ function fetchAllMedia(mediaType, apiUrl) {
           `;
           mediaContainer.appendChild(mediaCard);
 
-          // Attach an event listener to each media card to handle clicks, showing detailed info
-          mediaCard.addEventListener('click', function() {
-            const mediaId = this.getAttribute('data-id');
-            showMovieDetails(mediaId, mediaType);
-          });
+        
         });
 
         // Update pagination and loading status based on response data
