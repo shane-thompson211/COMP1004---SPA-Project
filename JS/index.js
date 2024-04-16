@@ -161,6 +161,105 @@ function createElement(tag, properties, ...children) {
   return element;
 }
 
+// Define a function to fetch all media types (movies, TV shows, etc.) from a given API URL
+function fetchAllMedia(mediaType, apiUrl) {
+  // Select the HTML element with ID 'content' and clear its current contents
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+
+  // Create a new div element to hold the media items and set its ID based on the media type
+  const mediaContainer = document.createElement('div');
+  mediaContainer.id = `${mediaType}Container`; // For example, 'movieContainer' or 'tvShowContainer'
+  content.appendChild(mediaContainer);
+
+  // Create a new div to display error messages and add it to the 'content' element
+  const errorContainer = document.createElement('div');
+  errorContainer.id = 'errorContainer';
+  content.appendChild(errorContainer);
+
+  // Initialize variables for pagination and loading state
+  let page = 1;
+  let isLoading = false;
+
+  // Define a function to fetch media data from the API
+  function fetchMedia() {
+    // Prevent concurrent fetches
+    if (isLoading) return;
+    isLoading = true;
+
+    // Fetch data from the API URL, appending the current page number as a query parameter
+    fetch(`${apiUrl}&page=${page}`)
+      .then(response => response.json())
+      .then(data => {
+        // Process each item in the fetched data
+        data.results.forEach(item => {
+          // Create a new div for each media item and set it up as a card
+          const mediaCard = document.createElement('div');
+          mediaCard.classList.add('card');
+          mediaCard.setAttribute('data-id', item.id); // Store the media ID for retrieval on click
+
+          // Format the rating to one decimal place and determine the color based on the rating
+          const rating = item.vote_average.toFixed(1);
+         
+
+          // Set labels and colors depending on the media type
+          const typeLabel = mediaType === 'movie' ? 'Movie' : 'TV Show';
+          const typeLabelColor = mediaType === 'movie' ? '#E50914' : '#221f1f';
+
+          // Populate the media card with HTML content including image and text descriptions
+          mediaCard.innerHTML = `
+              <div class="poster-wrapper">
+                 
+                  
+                  <img src="${IMG_URL + item.poster_path}" alt="${item.title || item.name}" class="media-poster">
+              </div>
+              <div class="descriptions">
+                  <h1>${item.title || item.name}</h1>
+                  <p>${item.overview}</p>
+              </div>
+          `;
+          mediaContainer.appendChild(mediaCard);
+
+          // Attach an event listener to each media card to handle clicks, showing detailed info
+          mediaCard.addEventListener('click', function() {
+            const mediaId = this.getAttribute('data-id');
+            showMovieDetails(mediaId, mediaType);
+          });
+        });
+
+        // Update pagination and loading status based on response data
+        if (data.page < data.total_pages) {
+          page++;
+          isLoading = false;
+        } else {
+          window.removeEventListener('scroll', handleScroll);
+        }
+      })
+      .catch(error => {
+        // Handle errors and update the error container
+        console.error(error);
+        errorContainer.innerText = `Failed to load ${mediaType}. Please try again later.`;
+        isLoading = false;
+      });
+  }
+
+  // Define a scroll handler to load more items when reaching the bottom of the page
+  function handleScroll() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    // Check if the user has scrolled to near the bottom of the page
+    if (scrollTop + windowHeight >= documentHeight - 100) {
+      fetchMedia();
+    }
+  }
+
+  // Initially fetch media and set up the scroll event listener
+  fetchMedia();
+  window.addEventListener('scroll', handleScroll);
+}
+
 // Fetches and populates genre data for both movies and TV shows.
 function populateGenres() {
   // Compiles URLs for movie and TV show genre listings.
@@ -178,6 +277,61 @@ function populateGenres() {
     ).join('');
   }).catch(error => console.error('Error:', error)); // Catches and logs any errors in the process.
 }
+
+// Function to display the home page content
+function showHomePage() {
+  // Access the 'content' and 'carouselContainer' elements from the DOM
+  const content = document.getElementById('content');
+  const carouselContainer = document.getElementById('newCarouselContainer');
+
+  // Reset the search input field and clear any existing content in the 'content' element
+  document.getElementById('searchInput').value = '';
+  content.innerHTML = '';
+
+  // Ensure that the carousel is visible on the home page
+  carouselContainer.style.display = 'block';
+
+  // Fetch and display carousels for different categories using a generic function
+  fetchMediaAndCreateCarousel('movie', 'popularity.desc', 'Popular Movies');
+  fetchMediaAndCreateCarousel('tv', 'popularity.desc', 'Popular TV Shows');
+  fetchMediaAndCreateCarousel('movie', 'vote_count.desc', 'Highest Rated Movies');
+  fetchMediaAndCreateCarousel('tv', 'vote_count.desc', 'Highest Rated TV Shows');
+}
+
+// Function to display the movies page
+function showMoviesPage() {
+  // Access the 'content' and 'carouselContainer' elements from the DOM
+  const content = document.getElementById('content');
+  const carouselContainer = document.getElementById('newCarouselContainer');
+
+  // Reset the search input field and clear any existing content in the 'content' element
+  document.getElementById('searchInput').value = '';
+  content.innerHTML = '';
+
+  // Hide the carousel when viewing the movies page
+  carouselContainer.style.display = 'none';
+
+  // Fetch and display movie data using the 'fetchAllMedia' function with the specific API URL for movies
+  fetchAllMedia('movie', MOVIE_URL);
+}
+
+// Function to display the TV shows page
+function showTVShowsPage() {
+  // Access the 'content' and 'carouselContainer' elements from the DOM
+  const content = document.getElementById('content');
+  const carouselContainer = document.getElementById('newCarouselContainer');
+
+  // Reset the search input field and clear any existing content in the 'content' element
+  document.getElementById('searchInput').value = '';
+  content.innerHTML = '';
+
+  // Hide the carousel when viewing the TV shows page
+  carouselContainer.style.display = 'none';
+
+  // Fetch and display TV show data using the 'fetchAllMedia' function with the specific API URL for TV shows
+  fetchAllMedia('tv', TV_SHOWS_URL);
+}
+
 
 // Populates genre dropdowns and sets up the home page on window load.
 function initializePage() {
