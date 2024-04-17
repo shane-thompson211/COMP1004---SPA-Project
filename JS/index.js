@@ -492,8 +492,82 @@ function createCard(item, mediaType) {
   return card;
 }
 
+function searchContent() {
+  const carouselContainer = document.getElementById('newCarouselContainer');
+  carouselContainer.style.display = 'none';
+  const content = document.getElementById('content');
+  content.innerHTML = '';
 
+  const query = document.getElementById('searchInput').value.trim();
+  if (!query) return;
 
+  const searchUrls = {
+    movie: `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&${API_KEY}&sort_by=vote_average.desc`,
+    tv: `${BASE_URL}/search/tv?query=${encodeURIComponent(query)}&${API_KEY}&sort_by=vote_average.desc`,
+  };
+
+  Promise.all([
+    fetchJson(searchUrls.movie),
+    fetchJson(searchUrls.tv)
+  ]).then(([movieData, tvData]) => {
+    const combinedResults = [...(movieData.results || []), ...(tvData.results || [])];
+
+    // Sort by vote average if necessary
+    combinedResults.sort((a, b) => b.vote_average - a.vote_average);
+
+    const container = createElement('div', {
+      style: 'display: flex; flex-wrap: wrap; justify-content: center;',
+    });
+
+    combinedResults.forEach(item => {
+      if (!item.poster_path || (!item.title && !item.name)) return;
+
+      const mediaCard = createMediaCard(item);
+      container.appendChild(mediaCard);
+
+      mediaCard.addEventListener('click', () => {
+        const mediaId = mediaCard.querySelector('img').getAttribute('data-id');
+        const mediaType = item.title ? 'movie' : 'tv'; // Determine type based on presence of 'title' (movies have 'title', TV shows have 'name')
+        showMovieDetails(mediaId, mediaType);
+      });
+    });
+
+    content.appendChild(container);
+  }).catch(error => {
+    console.error('Error fetching combined data:', error);
+    content.innerHTML = `<p>Error loading search results. Please try again.</p>`;
+  });
+}
+
+document.getElementById('searchButton').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent form submission
+  searchContent();
+});
+
+document.getElementById('clearButton').addEventListener('click', function() {
+  const searchInput = document.getElementById('searchInput');
+  searchInput.value = '';
+  showHomePage(); // Reset the content to the default view
+});
+
+function createMediaCard(item) {
+  const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+  const posterPath = item.poster_path ? `${IMG_URL}${item.poster_path}` : 'path/to/default/image.jpg';
+  const titleOrName = item.title || item.name || 'Unknown Title';
+  const ratingColor = getRatingColor(item.vote_average);
+
+  return createElement('div', {className: 'card'}, `
+    <div class="poster-container">
+      <img src="${posterPath}" alt="${titleOrName}" data-id="${item.id}" class="media-poster">
+      <div class="media-type-label">${item.title ? 'Movie' : 'TV Show'}</div>
+      <div class="rating-label" style="position: absolute; top: 0; left: 0; background-color: ${ratingColor}; padding: 2px 5px; border-radius: 0 5px 5px 0;">${item.vote_average.toFixed(1)}</div>
+    </div>
+    <div class="descriptions">
+      <h1>${titleOrName}</h1>
+      <p>${item.overview || 'No description available'}</p>
+    </div>
+  `);
+}
 
 // Function to display the home page content
 function showHomePage() {
