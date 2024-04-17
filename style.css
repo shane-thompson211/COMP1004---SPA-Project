@@ -1,18 +1,111 @@
-/* General Styles */
 body {
-  background-color: #3d3d3d;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100vh;
-  font-family: 'Lato', sans-serif;
-  background-image: linear-gradient(to right, #cb2d3e, #ef473a);
+  background-color: #0B0C10; /* Primary Dark for body background */
+  color: #C5C6C7; /* Light Grey for text color */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Overriding the main navbar styles */
+.navbar {
+  background-color: #1F2833; /* Secondary Dark Blue background */
+  border-color: #45A29E; /* Complementary Dark Blue border */
+}
+
+/* Navbar brand and link colors */
+.navbar-brand, .navbar-nav .nav-link {
+  color: #66FCF1 !important; /* Accent Cyan text for better readability */
+}
+
+/* Navbar link hover effects */
+.navbar-nav .nav-link:hover {
+  color: #0B0C10 !important; /* Primary Dark on hover for text */
+  background-color: #66FCF1 !important; /* Accent Cyan background */
+}
+
+/* Custom styles for active state using Bootstrap classes */
+.navbar-nav .active>.nav-link,
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show,
+.navbar-nav .show>.nav-link {
+  color: #45A29E !important; /* Complementary Dark Blue for active menu items */
+}
+
+/* Navbar toggler icon color */
+.navbar-light .navbar-toggler {
+  color: #66FCF1 !important;
+  border-color: #66FCF1 !important; /* Accent Cyan border for the toggler */
+}
+
+/* Navbar toggler icon bars color */
+.navbar-light .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%2366FCF1' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+}
+
+/* Overriding the dropdown menu styles */
+.navbar .dropdown-menu {
+  background-color: #1F2833 !important; /* Secondary Dark Blue for dropdown */
+  border-color: #45A29E !important; /* Complementary Dark Blue border */
+}
+
+/* Dropdown item styling */
+.navbar .dropdown-item {
+  color: #66FCF1 !important; /* Accent Cyan text for dropdown items */
+}
+
+/* Dropdown item hover styling */
+.navbar .dropdown-item:hover, .navbar .dropdown-item:focus {
+  color: #0B0C10 !important; /* Primary Dark text on hover/focus */
+  background-color: #45A29E !important; /* Complementary Dark Blue background */
+}
+
+.btn {
+  background-color: #66FCF1; /* Accent Cyan */
+  color: #0B0C10; /* Primary Dark */
+  border: none;
+  padding: 10px 20px;
+}
+
+.btn:hover {
+  background-color: #45A29E; /* Complementary Dark Blue */
+  color: #C5C6C7; /* Light Grey */
 }
 
 #content > div {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.card {
+  flex: 1;
+  flex-basis: 300px;
+  flex-grow: 0;
+  height: 440px;
+  background: #1F2833; /* Secondary Dark Blue background */
+  border: 2px solid #45A29E; /* Complementary Dark Blue border */
+  box-shadow: 0px 4px 7px rgba(0, 0, 0, .5);
+  cursor: pointer;
+  transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+  overflow: hidden;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+}
+
+.descriptions {
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(101, 111, 120, 0.85); /* A dark translucent overlay */
+  width: 100%;
+  height: 100%;
+  transition: all .7s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  clip-path: circle(0% at 100% 100%);
 }
 
 .wrapper {
@@ -28,26 +121,8 @@ body {
   justify-content: space-between;
 }
 
-/* Card Styles */
-.card {
-  flex: 1;
-  flex-basis: 300px;
-  flex-grow: 0;
-  height: 440px;
-  background: #fff;
-  border: 2px solid #fff;
-  box-shadow: 0px 4px 7px rgba(0, 0, 0, .5);
-  cursor: pointer;
-  transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
-  overflow: hidden;
-  position: relative;
-  margin: 10px;
-}
-
-.card img {
-  width: 100%;
-  height: 100%;
-  transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+.card:hover .descriptions {
+  clip-path: circle(75%);
 }
 
 .card:hover {
@@ -56,139 +131,150 @@ body {
 }
 
 .card:hover img {
-  transform: scale(1.6) rotate(20deg);
-  filter: blur(3px);
+  transform: scale(1.1); /* Reduced scale for a more subtle effect */
+  filter: blur(2px); /* Softer blur for a less drastic transition */
 }
 
-/* Descriptions Overlay */
-.descriptions {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, .7);
-  width: 100%;
-  height: 100%;
-  transition: all .7s ease-in-out;
-  padding: 20px;
-  box-sizing: border-box;
-  clip-path: circle(0% at 100% 100%);
-}
-
-.card:hover .descriptions {
-  left: 0;
-  transition: all .7s ease-in-out;
-  clip-path: circle(75%);
-}
-
-/* Text Styles */
-.card h1, .slide h1 {
-  color: #ff3838;
+.card h1 {
+  color: #66FCF1; /* Accent Cyan for headers */
   letter-spacing: 1px;
-  margin: 0;
+  margin: 0px;
 }
 
-.card p, .slide p {
+.card p {
   line-height: 24px;
   height: 70%;
+  color: #66FCF1;
 }
 
-/* Dropdown Menu Interaction */
+
+
 .dropdown:hover .dropdown-menu {
   display: block;
 }
 
-/* Carousel and Slide Adjustments */
-.carousel, .slide {
+
+/* Styles for Slick Carousel slides */
+.carousel {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 50px; /* Add margin-top for gap between sliders */
 }
 
 .slide {
-  margin: 5px;
-  padding: 5px;
-  border: 1px solid #ccc;
+  margin: 5px; /* Adjusted margin */
+  padding: 5px; /* Adjusted padding */
+  border: 1px solid #ccc; /* Light grey border for subtle distinction */
   border-radius: 5px;
   flex: 1;
-  flex-basis: 300px;
+  flex-basis: 300px; /* Matched with the flex-basis of .card */
   flex-grow: 0;
-  height: 440px;
-  background: #fff;
-  box-shadow: 0px 4px 7px rgba(0, 0, 0, .5);
+  height: 440px; /* Matched with the height of .card */
+  background: #66FCF1; /* White background to maintain clean design */
+  box-shadow: 0px 4px 7px rgba(0,0,0,.5); /* Consistent shadow with the cards */
   cursor: pointer;
-  transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+  transition: all .5s cubic-bezier(.8,.5,.2,1.4);
   overflow: hidden;
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 50px; /* Add margin-bottom for gap between sliders */
 }
 
 .slide img {
   width: 100%;
   height: 100%;
-  transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+  transition: all .5s cubic-bezier(.8,.5,.2,1.4);
+}
+
+.slide .descriptions {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(11, 12, 16, 0.85); /* Semi-transparent layer using Primary Dark for readability */
+  color: #66FCF1; /* Light Grey for text color, ensuring readability */
+  width: 100%;
+  height: 100%;
+  transition: all .7s ease-in-out;
+  padding: 20px; /* Adjusted padding for consistency */
+  box-sizing: border-box;
+  clip-path: circle(0% at 100% 100%);
 }
 
 .slide:hover .descriptions {
-  left: 0;
+  left: 0px;
   transition: all .7s ease-in-out;
   clip-path: circle(75%);
 }
 
 .slide:hover {
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, .3);
+  transition: all .5s cubic-bezier(.8,.5,.2,1.4);
+  box-shadow: 0px 2px 3px rgba(0,0,0,.3); /* Lighter shadow for hover effect */
   transform: scale(.97);
 }
 
 .slide:hover img {
+  transition: all .5s cubic-bezier(.8,.5,.2,1.4);
   transform: scale(1.6) rotate(20deg);
   filter: blur(3px);
 }
 
 .slide h1 {
-  color: #ff3838;
+  color: #66FCF1; /* Consistent vibrant red for titles */
   letter-spacing: 1px;
-  margin: 0;
+  margin: 0px;
 }
 
 .slide p {
-  line-height: 20px;
+  line-height: 20px; /* Adjusted line-height */
   height: 70%;
-  font-size: 12px;
+  font-size: 12px; /* Smaller font size for cleaner text appearance */
 }
 
 h2 {
   text-align: center;
-  color: #fff;
-  margin: 0 0 10px;
+  color: #66FCF1; /* Accent Cyan for headings to stand out */
+  margin: 0 0 10px; /* Adjusted margin */
 }
 
-/* Slick Carousel Gap Reduction */
+/* Reduce gap between sliders */
 .slick-slider {
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Adjusted margin */
 }
 
-/* New Carousel Adjustments */
 .Newcarousel .slide {
   background-size: cover;
   background-position: center;
-  margin: 15px;
+  margin: 15px; /* Adjust based on your layout */
 }
 
+/* Ensure the carousel spans the entire width of its container */
 .Newcarousel {
   margin: 0 auto;
   width: 90%;
 }
 
+/* Adjust the slick list to ensure it spans the full width */
 .slick-list {
-  margin: 0 -15px;
+  margin: 0 -15px; /* Adjust this value based on your actual margins */
 }
 
+/* Optional: Adjustments for slick buttons (prev/next) to ensure they are visible and positioned correctly */
 .slick-prev, .slick-next {
-  color: #fff;
+  color: #66FCF1; /* Accent Cyan for buttons */
   z-index: 1;
 }
 
+/* If you have control over the aspect ratio, you can explicitly set heights for various breakpoints */
+@media (min-width: 768px) {
+  .Newcarousel .slide {
+    height: 600px; /* Adjust based on your preference */
+  }
+}
+
+.Newcarousel .slide {
+  position: relative;
+  color: #C5C6C7; /* Light Grey adjusted text color */
+}
 
 .Newcarousel .slide-background {
   position: absolute;
@@ -201,59 +287,36 @@ h2 {
 }
 
 .Newcarousel .slide-content {
-  position:absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
+  position: absolute;
+  bottom: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  right: 20px; /* Ensures padding on the right */
   text-align: left;
 }
 
-.Newcarousel .title, .Newcarousel .description, .Newcarousel .additional-info {
-  color: #fff;
+.Newcarousel .title {
+  margin: 0;
+  color: #66FCF1; /* Accent Cyan for titles within the slides */
 }
 
-
-.poster-container .image-overlay {
-  position: relative;
-  display: inline-block;
+.Newcarousel .description {
+  margin-top: 10px; /* Adjust space between title and description */
+  color: #66FCF1; /* Light Grey for descriptions */
 }
 
-.poster-container img.movie-poster {
-  display: block; /* Ensures img takes full width of its container */
-  width: 100%; /* Ensures img is responsive within its container */
+.Newcarousel .additional-info {
+  display: flex;
+  justify-content: space-between; /* Adjusts alignment */
+  margin-top: 10px; /* Space between description and additional info */
+  color: #66FCF1; /* Light Grey for additional info */
 }
 
-.media-type-label, .rating-label {
-  position: absolute;
-  padding: 2px 5px;
-  font-size: 12px;
-  color: white;
-  border-radius: 0 5px; /* Adjusted for both labels */
+.Newcarousel .additional-info > span {
+  flex: 1; /* Adjust as needed */
+  text-align: left; /* Aligns content to the left */
 }
 
-.media-type-label {
-  top: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.75); /* Adjust as needed */
-}
-
-.rating-label {
-  top: 0;
-  left: 0;
-  /* Background color is dynamically set in JS */
-}
-
-.card h1 {
-  color: #ff3838;
-  letter-spacing: 1px;
-  margin: 0px;
-}
-
-.card p {
-  line-height: 24px;
-  height: 70%;
-}
-
+/* General Modal Adjustments for a Netflix-Like Experience */
 .modal-dialog {
   max-width: 60%; /* Offering a bit more space for content */
   margin: 2vh auto; /* Vertical margin based on viewport height */
@@ -408,4 +471,33 @@ h2 {
   .modal-footer {
     align-items: center; /* Centers footer content */
   }
+}
+.poster-container .image-overlay {
+  position: relative;
+  display: inline-block;
+}
+
+.poster-container img.movie-poster {
+  display: block; /* Ensures img takes full width of its container */
+  width: 100%; /* Ensures img is responsive within its container */
+}
+
+.media-type-label, .rating-label {
+  position: absolute;
+  padding: 2px 5px;
+  font-size: 12px;
+  color: white;
+  border-radius: 0 5px; /* Adjusted for both labels */
+}
+
+.media-type-label {
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.75); /* Adjust as needed */
+}
+
+.rating-label {
+  top: 0;
+  left: 0;
+  /* Background color is dynamically set in JS */
 }

@@ -25,7 +25,7 @@ async function fetchCurrentlyShowcasingMovies() {
     console.error(error); // Logs errors to the console.
   }
 }
-
+// Determine what colour the rating is
 function getRatingColor(vote_average) {
   if (vote_average >= 7) return 'green';
   else if (vote_average >= 5) return 'yellow';
@@ -152,8 +152,7 @@ function getWriters(crew) {
   return writers.length > 0 ? writers.map(writer => writer.name).join(', ') : 'N/A';
 }
 
-
-// Creates a poster carousel in the 'currentlyShowcasingCarousel' container.
+// Creates Carousel that is on the hompage. 
 function createPosterCarousel(items) {
   const carouselContainer = document.getElementById('currentlyShowcasingCarousel');
   carouselContainer.innerHTML = ''; // Clears existing carousel content.
@@ -163,7 +162,7 @@ function createPosterCarousel(items) {
       <div class="slide-background" style="background-image: url('${imageUrl}');" alt="Movie Poster" data-movie-id="${item.id}"></div>
       <div class="slide-content">
         <h3 class="title">${item.title}</h3>
-        <p class="description">${item.overview}</p>
+        
       </div>
     `);
     carouselContainer.appendChild(slide);
@@ -187,7 +186,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchCurrentlyShowcasingMovies();
 });
 
-// Creates a generic carousel for displaying either movies or TV shows.
+// Creates the Carousels on the homepage to show "Popular TV or Movies".
 function createCarousel(title, items) {
   const content = document.getElementById('content');
   const carouselContainer = document.createElement('div');
@@ -266,7 +265,7 @@ function fetchMediaAndCreateCarousel(mediaType, sortBy, title) {
     .catch(error => console.error('Error fetching data:', error)); // Catches and logs any fetch errors.
 }
 
-
+// Show what is displayed on the homepage
 function showHomePage() {
   const content = document.getElementById('content');
   const carouselContainer = document.getElementById('newCarouselContainer');
@@ -301,6 +300,7 @@ function createElement(tag, properties, ...children) {
   return element;
 }
 
+// This is the image cards for both movies and tv shows on the Movies and TV show pages
 function fetchAllMedia(mediaType, apiUrl) {
   const content = document.getElementById('content');
   content.innerHTML = ''; // Clear the content
@@ -682,8 +682,6 @@ function showFavoritesPage() {
   });
 }
 
-
-
 function isFavoritesPage() {
   return currentPage === 'favorites';
 }
@@ -754,7 +752,6 @@ function handleFavoriteToggle(event, id, type) {
       showFavoritesPage(); // Dynamically update the content without navigating
   }
 }
-
 
 // Populates genre dropdowns and sets up the home page on window load.
 function initializePage() {
