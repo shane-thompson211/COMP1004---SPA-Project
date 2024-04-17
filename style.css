@@ -213,6 +213,199 @@ h2 {
 }
 
 
+.poster-container .image-overlay {
+  position: relative;
+  display: inline-block;
+}
+
+.poster-container img.movie-poster {
+  display: block; /* Ensures img takes full width of its container */
+  width: 100%; /* Ensures img is responsive within its container */
+}
+
+.media-type-label, .rating-label {
+  position: absolute;
+  padding: 2px 5px;
+  font-size: 12px;
+  color: white;
+  border-radius: 0 5px; /* Adjusted for both labels */
+}
+
+.media-type-label {
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.75); /* Adjust as needed */
+}
+
+.rating-label {
+  top: 0;
+  left: 0;
+  /* Background color is dynamically set in JS */
+}
+
+.card h1 {
+  color: #ff3838;
+  letter-spacing: 1px;
+  margin: 0px;
+}
+
+.card p {
+  line-height: 24px;
+  height: 70%;
+}
+
+.modal-dialog {
+  max-width: 60%; /* Offering a bit more space for content */
+  margin: 2vh auto; /* Vertical margin based on viewport height */
+}
+
+.modal-content {
+  background-color: #0B0C10; /* Primary Dark as modal background */
+  color: #C5C6C7; /* Light Grey for text contrast */
+  border: none; /* Removing default borders */
+}
+
+.modal-header, .modal-footer {
+  border-bottom: 1px solid #1F2833; /* Secondary Dark Blue for subtle borders */
+  background-color: #0B0C10; /* Primary Dark consistent with the modal background */
+  color: #66FCF1; /* Accent Cyan for a pop of color in text */
+}
+
+.modal-title {
+  display: none; /* Hiding the title for a more immersive poster display */
+}
+
+/* Poster Image Styling */
+.poster-wrapper {
+  width: 100%; /* Full width for a more immersive experience */
+  overflow: hidden; /* Cleanly hides overflow */
+  position: relative; /* Establishes a positioning context */
+  margin-bottom: 20px; /* Spacing between poster and details */
+  display: flex;
+}
+.poster-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(11, 12, 16, 0.75); /* Semi-transparent overlay using Primary Dark */
+  color: #66FCF1; /* Accent Cyan for poster title */
+  padding: 5px 10px; /* Padding around the text */
+  margin: 10px; /* Margin from the edges of the wrapper */
+  font-size: 20px; /* Large font for visibility */
+  border-radius: 5px; /* Rounded corners for the background */
+}
+.modal-poster-img {
+  width: 100%;
+  height: auto; /* Maintains aspect ratio */
+  object-fit: cover; /* Ensures cover fit within the container without distortion */
+}
+
+/* Details and Description Styling */
+.modal-details {
+  display: flex;
+  justify-content: center; /* Keeps left and right details apart */
+}
+
+.detail-label {
+  font-weight: bold; /* Make labels bold */
+  margin-right: 10px; /* Space between label and value */
+  white-space: nowrap; /* Prevents the label from wrapping */
+  color: #66FCF1; /* Accent Cyan for labels */
+}
+
+.detail-value {
+  text-align: left; /* Ensure values are left-aligned */
+  flex: 1; /* Allows the value to expand and fill the available space */
+  color: #66FCF1; /* Light Grey for values */
+}
+
+.modal-details-left, .modal-details-right {
+  flex: 1;
+}
+
+.modal-details-right {
+  text-align: left; /* Aligns text to the right */
+  padding-left: 650px; /* Adjustment for padding */
+}
+
+.modal-details-left p, .modal-details-right p {
+  margin: 8px 0; /* Increased spacing for readability */
+  color: #66FCF1; /* Light Grey for paragraphs */
+}
+
+.modal-description {
+  font-size: 16px; /* Slightly larger font for readability */
+  padding: 10px 0; /* Adjusted padding for compactness */
+  color: #66FCF1; /* Light Grey for modal description */
+}
+
+/* Footer Styling for a Consistent Look */
+.modal-footer {
+  flex-direction: column;
+  align-items: flex-start; /* Aligns footer content to the start */
+  padding: 20px; /* Sufficient padding for separation */
+  color: #66FCF1; /* Accent Cyan for footer text */
+}
 
 
+.modal-footer p {
+  margin: 4px 0; /* Tighter margin for a compact footer */
+}
 
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .modal-dialog {
+    max-width: 75%; /* Allows the modal to be slightly wider on smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-dialog {
+    max-width: 90%; /* Utilizes more screen space for very small devices */
+  }
+
+  .modal-details {
+    flex-direction: column; /* Stacks details vertically for space efficiency */
+    align-items: center; /* Centers the details */
+  }
+
+  .modal-details-left, .modal-details-right {
+    text-align: center; /* Centers text in the detail sections */
+    margin-bottom: 10px; /* Adds bottom margin for separation */
+  }
+
+  .modal-footer {
+    align-items: center; /* Centers footer content */
+  }
+}
+
+.modal-footer p {
+  margin: 4px 0; /* Tighter margin for a compact footer */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .modal-dialog {
+    max-width: 75%; /* Allows the modal to be slightly wider on smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-dialog {
+    max-width: 90%; /* Utilizes more screen space for very small devices */
+  }
+
+  .modal-details {
+    flex-direction: column; /* Stacks details vertically for space efficiency */
+    align-items: center; /* Centers the details */
+  }
+
+  .modal-details-left, .modal-details-right {
+    text-align: center; /* Centers text in the detail sections */
+    margin-bottom: 10px; /* Adds bottom margin for separation */
+  }
+
+  .modal-footer {
+    align-items: center; /* Centers footer content */
+  }
+}
