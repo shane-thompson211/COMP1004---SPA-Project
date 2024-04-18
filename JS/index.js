@@ -204,9 +204,18 @@ function createPosterCarousel(items) {
   });
 }
 
+// Fetches media data based on type and sort order, then creates a carousel display.
+function fetchMediaAndCreateCarousel(mediaType, sortBy, title) {
+  const URL = `${BASE_URL}/discover/${mediaType}?sort_by=${sortBy}&${API_KEY}&page=1`;
+  fetch(URL)
+    .then(response => response.json())
+    .then(data => {
+      createCarousel(title, data.results, mediaType); // Uses the fetched data to create a carousel.
+    })
+    .catch(error => console.error('Error fetching data:', error));
+}
 
-
-// Creates the Carousels on the homepage to show "Popular TV or Movies".
+// Function to create carousels on the homepage to show "Popular TV or Movies".
 function createCarousel(title, items) {
   const content = document.getElementById('content');
   const carouselContainer = document.createElement('div');
@@ -222,15 +231,14 @@ function createCarousel(title, items) {
     slide.classList.add('slide', 'poster-container');
     slide.setAttribute('data-id', item.id);
 
-    // Media type and rating logic
-    const mediaType = item.title ? 'Movie' : 'TV Show';
+    const mediaType = item.title ? 'movie' : 'tv'; // Correct media type assignment
     const rating = item.vote_average.toFixed(1); // Format rating to one decimal place
     const ratingColor = getRatingColor(item.vote_average);
 
     // Inner HTML setup, including an overlay div for the rating and media type
     slide.innerHTML = `
       <div class="image-overlay">
-        <div class="media-type-label">${mediaType}</div>
+        <div class="media-type-label">${item.title ? 'Movie' : 'TV Show'}</div>
         <div class="rating-label" style="background-color: ${ratingColor};">${rating}</div>
         <img src="${IMG_URL + item.poster_path}" alt="${item.title || item.name}" class="movie-poster">
       </div>
@@ -242,13 +250,13 @@ function createCarousel(title, items) {
 
     carouselContainer.appendChild(slide);
 
-    // Add advanced click/drag detection to each slide
-    addDragDetection(slide, item.id);
+    // Add advanced click/drag detection to each slide, now with correct media type handling
+    addDragDetection(slide, item.id, mediaType);
   });
 
   content.appendChild(carouselContainer);
 
-  // Initialize the carousel using Slick
+  // Initialize the carousel using Slick with responsive design settings
   $(carouselContainer).slick({
     infinite: true,
     speed: 300,
@@ -269,9 +277,8 @@ function createCarousel(title, items) {
   });
 }
 
-// Function to add drag detection to a slide
-function addDragDetection(slideElement, movieId) {
-  // Ensure the element is a jQuery object to use the .on() method
+// Function to add drag detection to a slide and handle clicks correctly
+function addDragDetection(slideElement, itemId, mediaType) {
   const $slide = $(slideElement);
 
   let isDragging = false;
@@ -285,29 +292,13 @@ function addDragDetection(slideElement, movieId) {
     if (Math.abs(moveX - startX) > 10) {
       isDragging = true;
     }
-  }).on('mouseup touchend', function(event) {
+  }).on('mouseup touchend', function() {
     if (!isDragging) {
-      showMovieDetails(movieId);
+      showMovieDetails(itemId, mediaType); // Ensure the correct media type is used when fetching details
     }
   });
 }
 
-
-// Fetches media data based on type and sort order, then creates a carousel display.
-function fetchMediaAndCreateCarousel(mediaType, sortBy, title) {
-  // Optionally reads a sort value from a select element or uses the provided default.
-  const sortSelect = document.getElementById('sortSelect'); 
-  const sortByValue = sortSelect ? sortSelect.value : sortBy; 
-  // Constructs the request URL with the chosen sort order.
-  const URL = `${BASE_URL}/discover/${mediaType}?sort_by=${sortByValue}&${API_KEY}&page=1`;
-  // Fetches the media data and processes it to create a carousel.
-  fetch(URL)
-    .then(response => response.json())
-    .then(data => {
-      createCarousel(title, data.results); // Uses the fetched data to create a carousel.
-    })
-    .catch(error => console.error('Error fetching data:', error)); // Catches and logs any fetch errors.
-}
 
 // Show what is displayed on the homepage
 function showHomePage() {
