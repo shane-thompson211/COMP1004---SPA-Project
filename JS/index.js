@@ -15,6 +15,13 @@ const MOVIE_GENRE_API = BASE_URL + '/genre/movie/list?' + API_KEY;
 // URL for fetching TV show genres.
 const TV_SHOW_GENRE_API = BASE_URL + '/genre/tv/list?' + API_KEY;
 
+
+// Document ready function to set up everything
+document.addEventListener('DOMContentLoaded', function() {
+  // Fetch movies and set up the carousel
+  fetchCurrentlyShowcasingMovies();
+});
+
 // Asynchronously fetches currently showcasing movies and creates a carousel.
 async function fetchCurrentlyShowcasingMovies() {
   try {
@@ -152,39 +159,52 @@ function getWriters(crew) {
   return writers.length > 0 ? writers.map(writer => writer.name).join(', ') : 'N/A';
 }
 
-// Creates Carousel that is on the hompage. 
 function createPosterCarousel(items) {
   const carouselContainer = document.getElementById('currentlyShowcasingCarousel');
   carouselContainer.innerHTML = ''; // Clears existing carousel content.
   items.forEach(item => {
-    const imageUrl = item.backdrop_path ? `https://image.tmdb.org/t/p/original${item.backdrop_path}` : `https://image.tmdb.org/t/p/original${item.poster_path}`;
-    const slide = createElement('div', {className: 'slide'}, `
-      <div class="slide-background" style="background-image: url('${imageUrl}');" alt="Movie Poster" data-movie-id="${item.id}"></div>
-      <div class="slide-content">
-        <h3 class="title">${item.title}</h3>
-        
-      </div>
-    `);
-    carouselContainer.appendChild(slide);
-    // Adds a click event listener to each slide that triggers the display of movie details.
-    slide.querySelector('.slide-background').addEventListener('click', function() {
-      showMovieDetails(item.id);
-    });
+      const imageUrl = item.backdrop_path ? `https://image.tmdb.org/t/p/original${item.backdrop_path}` : `https://image.tmdb.org/t/p/original${item.poster_path}`;
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      slide.innerHTML = `
+        <div class="slide-background" style="background-image: url('${imageUrl}');" alt="Movie Poster" data-movie-id="${item.id}"></div>
+        <div class="slide-content">
+          <h3 class="title">${item.title}</h3>
+        </div>
+      `;
+      carouselContainer.appendChild(slide);
   });
-  // Initializes the Slick Carousel plugin for interactive slides.
+
+  // Initialize Slick Carousel
   $(carouselContainer).slick({
       infinite: true,
       slidesToShow: 3,
       slidesToScroll: 3,
       adaptiveHeight: true,
       swipeToSlide: true,
-      touchThreshold: 30,
+      touchThreshold: 30
+  });
+
+  // Manual drag detection
+  let isDragging = false;
+  let startX = 0;
+
+  $('.slide-background').on('mousedown', function(event) {
+      isDragging = false;
+      startX = event.pageX; // Save the initial position
+  }).on('mousemove', function(event) {
+      if (Math.abs(event.pageX - startX) > 10) { // Check if the mouse has moved significantly
+          isDragging = true;
+      }
+  }).on('mouseup', function() {
+      if (!isDragging) {
+          const movieId = $(this).data('movie-id');
+          showMovieDetails(movieId);
+      }
   });
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  fetchCurrentlyShowcasingMovies();
-});
+
 
 // Creates the Carousels on the homepage to show "Popular TV or Movies".
 function createCarousel(title, items) {
@@ -222,13 +242,13 @@ function createCarousel(title, items) {
 
     carouselContainer.appendChild(slide);
 
-    slide.addEventListener('click', function() {
-      showMovieDetails(item.id, item.title ? 'movie' : 'tv');
-    });
+    // Add advanced click/drag detection to each slide
+    addDragDetection(slide, item.id);
   });
 
   content.appendChild(carouselContainer);
 
+  // Initialize the carousel using Slick
   $(carouselContainer).slick({
     infinite: true,
     speed: 300,
@@ -248,6 +268,30 @@ function createCarousel(title, items) {
     ]
   });
 }
+
+// Function to add drag detection to a slide
+function addDragDetection(slideElement, movieId) {
+  // Ensure the element is a jQuery object to use the .on() method
+  const $slide = $(slideElement);
+
+  let isDragging = false;
+  let startX = 0;
+
+  $slide.on('mousedown touchstart', function(event) {
+    isDragging = false;
+    startX = event.pageX || event.originalEvent.touches[0].pageX;
+  }).on('mousemove touchmove', function(event) {
+    let moveX = event.pageX || event.originalEvent.touches[0].pageX;
+    if (Math.abs(moveX - startX) > 10) {
+      isDragging = true;
+    }
+  }).on('mouseup touchend', function(event) {
+    if (!isDragging) {
+      showMovieDetails(movieId);
+    }
+  });
+}
+
 
 // Fetches media data based on type and sort order, then creates a carousel display.
 function fetchMediaAndCreateCarousel(mediaType, sortBy, title) {
