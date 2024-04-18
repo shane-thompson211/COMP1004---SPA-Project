@@ -1,159 +1,164 @@
+/* Basic body styling */
 body {
-  background-color: #0B0C10; /* Primary Dark for body background */
-  color: #C5C6C7; /* Light Grey for text color */
-  font-family: 'Arial', sans-serif;
-  padding-top: 60px; /* Adjust this value based on the height of your navbar */
-  margin: 0; /* Removes default margin */
+  background-color: #0B0C10; /* Primary dark color for the background */
+  color: #C5C6C7; /* Light grey color for text */
+  font-family: 'Arial', sans-serif; /* Default font for the website */
+  padding-top: 60px; /* Space added to top of body to prevent overlap with fixed navbar */
+  margin: 0; /* Resets any default browser margin */
 }
 
-/* Overriding the main navbar styles */
+/* Styling for the navbar */
 .navbar {
-  height: 60px; /* Set a specific height */
-  line-height: 60px; /* Align text vertically in the center */
-  background-color: #1F2833; /* Secondary Dark Blue background */
-  border-color: #45A29E; /* Complementary Dark Blue border */
-   position: fixed;  /* Fixes the navbar to the viewport */
-  top: 0;           /* Aligns the navbar at the top of the viewport */
-  width: 100%;      /* Makes the navbar extend across the full width of the viewport */
-  z-index: 1000;    /* Ensures the navbar stays on top of other content */
+  height: 60px; /* Fixed height for the navbar */
+  line-height: 60px; /* Centers text vertically within the navbar */
+  background-color: #1F2833; /* Dark blue background color */
+  border-color: #45A29E; /* Teal border color */
+  position: fixed;  /* Fixes navbar to the top of the viewport */
+  top: 0;  /* Position at the top of the viewport */
+  width: 100%; /* Full viewport width */
+  z-index: 1000; /* High z-index to keep navbar above other content */
 }
 
-/* Navbar brand and link colors */
+/* Styles for navbar brand and links */
 .navbar-brand, .navbar-nav .nav-link {
-  color: #66FCF1 !important; /* Accent Cyan text for better readability */
+  color: #66FCF1 !important; /* Cyan color for better readability, important to override default styles */
 }
 
-/* Navbar link hover effects */
+/* Hover effects for navbar links */
 .navbar-nav .nav-link:hover {
-  color: #0B0C10 !important; /* Primary Dark on hover for text */
-  background-color: #66FCF1 !important; /* Accent Cyan background */
+  color: #0B0C10 !important; /* Dark color for text on hover */
+  background-color: #66FCF1 !important; /* Cyan background on hover */
 }
 
-/* Custom styles for active state using Bootstrap classes */
+/* Styles for active navbar links */
 .navbar-nav .active>.nav-link,
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show,
 .navbar-nav .show>.nav-link {
-  color: #45A29E !important; /* Complementary Dark Blue for active menu items */
+  color: #45A29E !important; /* Dark teal color for active links */
 }
 
-/* Navbar toggler icon color */
+/* Styles for the navbar toggler */
 .navbar-light .navbar-toggler {
-  color: #66FCF1 !important;
-  border-color: #66FCF1 !important; /* Accent Cyan border for the toggler */
+  color: #66FCF1 !important; /* Cyan color for the toggler icon */
+  border-color: #66FCF1 !important; /* Cyan border color for the toggler */
 }
 
-/* Navbar toggler icon bars color */
+/* Custom SVG for the navbar toggler icon */
 .navbar-light .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%2366FCF1' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
-/* Overriding the dropdown menu styles */
+/* Styles for the navbar dropdown menu */
 .navbar .dropdown-menu {
-  background-color: #1F2833 !important; /* Secondary Dark Blue for dropdown */
-  border-color: #45A29E !important; /* Complementary Dark Blue border */
+  background-color: #1F2833 !important; /* Dark blue background color for dropdowns */
+  border-color: #45A29E !important; /* Teal border color for dropdowns */
 }
 
-/* Dropdown item styling */
+/* Styles for dropdown items */
 .navbar .dropdown-item {
-  color: #66FCF1 !important; /* Accent Cyan text for dropdown items */
+  color: #66FCF1 !important; /* Cyan text color for dropdown items */
 }
 
-/* Dropdown item hover styling */
+/* Hover styles for dropdown items */
 .navbar .dropdown-item:hover, .navbar .dropdown-item:focus {
-  color: #0B0C10 !important; /* Primary Dark text on hover/focus */
-  background-color: #45A29E !important; /* Complementary Dark Blue background */
+  color: #0B0C10 !important; /* Dark text color on hover/focus */
+  background-color: #45A29E !important; /* Dark teal background on hover/focus */
 }
 
+/* Small logo size adjustments */
 .small-logo {
   width: 80px!important;
-  height: 80px!important;
+  height: 80px!important; /* Important to enforce size regardless of other styles */
 }
 
-
+/* Button styles */
 .btn {
-  background-color: #66FCF1; /* Accent Cyan */
-  color: #0B0C10; /* Primary Dark */
-  border: none;
-  padding: 10px 20px;
-  
+  background-color: #66FCF1; /* Cyan background color */
+  color: #0B0C10; /* Dark text color */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding around the text */
 }
 
+/* Hover styles for buttons */
 .btn:hover {
-  background-color: #45A29E; /* Complementary Dark Blue */
-  color: #C5C6C7; /* Light Grey */
+  background-color: #45A29E; /* Dark teal background on hover */
+  color: #C5C6C7; /* Light grey text on hover */
 }
 
+/* Styles for content divs inside #content */
 #content > div {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; /* Center children horizontally */
   padding: 20px;
-  gap: 5px;
-  
+  gap: 5px; /* Space between children */
 }
 
+/* Card styles */
 .card {
-  flex: 0 1 300px; /* Flex-grow set to 0, Flex-shrink set to 1, Flex-basis set to 300px */
+  flex: 0 1 300px; /* Flex-grow 0, Flex-shrink 1, Flex-basis 300px */
   height: 440px;
-  margin: 10px; /* Adds margin around cards */
-  background: #1F2833;
-  border: 2px solid #45A29E;
-  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
-  position: relative; /* Ensures positioning context for child absolute elements */
-  overflow: hidden;
-  
+  margin: 10px; /* Margin around cards */
+  background: #1F2833; /* Dark blue background color */
+  border: 2px solid #45A29E; /* Teal border color */
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.5); /* Shadow effect */
+  transition: all 0.3s ease; /* Transition for hover effects */
+  position: relative; /* Positioning context for child elements */
+  overflow: hidden; /* Hides anything outside the boundaries of the card */
 }
 
+/* Styles for images within cards */
 .card img {
   width: 100%;
-  height: auto; /* Changes height to auto to maintain aspect ratio */
-  object-fit: cover; /* Ensures the image covers the card */
+  height: auto; /* Maintains aspect ratio */
+  object-fit: cover; /* Ensures the image covers the entire card */
 }
 
+/* Styles for descriptions within cards */
 .card .descriptions {
-  position: absolute;
+  position:absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(101, 111, 120, 0.85);
+  background-color: rgba(101, 111, 120, 0.85); /* Dark translucent overlay */
   padding: 20px;
   box-sizing: border-box;
-  clip-path: circle(0% at 100% 100%);
-  transition: clip-path 0.5s ease-out;
+  clip-path: circle(0% at 100% 100%); /* Initially clip to a circle at the corner */
+  transition: clip-path 0.5s ease-out; /* Smooth transition for hover effect */
 }
 
-
+/* Positioning wrapper for additional content inside cards */
 .wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* Center the wrapper */
   width: 100%;
   max-width: 650px;
   height: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-between; /* Space out children evenly */
 }
 
+/* Hover effects for cards */
 .card:hover .descriptions {
-  clip-path: circle(75% at 50% 50%);
+  clip-path: circle(75% at 50% 50%); /* Expand clip circle on hover */
 }
 .card:hover {
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, .3);
-  transform: scale(.97);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, .3); /* Lighter shadow on hover */
+  transform: scale(.97); /* Slightly scale down on hover */
 }
 
 .card:hover img {
-  transform: scale(1.1); /* Reduced scale for a more subtle effect */
-  filter: blur(2px); /* Softer blur for a less drastic transition */
+  transform: scale(1.1); /* Scale up image slightly on hover */
+  filter: blur(2px); /* Slight blur effect on hover */
 }
 
 .card h1 {
-  color: #66FCF1; /* Accent Cyan for headers */
+  color: #66FCF1; /* Cyan color for headings */
   letter-spacing: 1px;
   margin: 0px;
 }
@@ -161,129 +166,99 @@ body {
 .card p {
   line-height: 24px;
   height: 70%;
-  color: #66FCF1;
+  color: #66FCF1; /* Cyan text color */
 }
 
+/* Hover effect for dropdowns */
 .dropdown:hover .dropdown-menu {
-  display: block;
+  display: block; /* Display dropdown on hover */
 }
 
-/* Styles for Slick Carousel slides */
+/* Styling for carousel slides */
 .carousel {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 50px; /* Add margin-top for gap between sliders */
+  justify-content: center; /* Center slides horizontally */
+  margin-top: 50px; /* Margin at the top for spacing */
   padding: 20px;
 }
 
+/* Specific styles for each slide */
 .slide {
-  flex: 0 1 300px; /* Flex-grow set to 0, Flex-shrink set to 1, Flex-basis set to 300px */
-  height: 440px;
-  margin: 10px; /* Adds margin around cards */
-  background: #1F2833;
-  border: 2px solid #45A29E;
-  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
-  position: relative; /* Ensures positioning context for child absolute elements */
-  overflow: hidden;
-  
+  flex: 0 1 300px; /* Flex-grow 0, Flex-shrink 1, Flex-basis 300px */
+  height: 440px; /* Fixed height for consistency */
+  margin: 10px; /* Margin around slides */
+  background: #1F2833; /* Dark blue background */
+  border: 2px solid #45A29E; /* Teal border */
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.5); /* Consistent shadow with cards */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  position: relative; /* Positioning context for child elements */
+  overflow: hidden; /* Hides anything outside the boundaries of the slide */
 }
 
 .slide img {
   width: 100%;
   height: 100%;
-  transition: all .5s cubic-bezier(.8,.5,.2,1.4);
+  transition: all .5s cubic-bezier(.8,.5,.2,1.4); /* Smooth transition for hover effects */
 }
 
 .slide .descriptions {
   position: absolute;
   top: 0px;
   left: 0px;
-  background-color: rgba(11, 12, 16, 0.85); /* Semi-transparent layer using Primary Dark for readability */
-  color: #66FCF1; /* Light Grey for text color, ensuring readability */
+  background-color: rgba(11, 12, 16, 0.85); /* Dark semi-transparent overlay for readability */
+  color: #66FCF1; /* Light grey text color */
   width: 100%;
   height: 100%;
-  transition: all .7s ease-in-out;
-  padding: 20px; /* Adjusted padding for consistency */
+  transition: all .7s ease-in-out; /* Smooth transition for showing descriptions */
+  padding: 20px; /* Padding for content */
   box-sizing: border-box;
-  clip-path: circle(0% at 100% 100%);
+  clip-path: circle(0% at 100% 100%); /* Initially clip to a circle at the corner */
 }
 
+/* Hover effects for slides */
 .slide:hover .descriptions {
-  left: 0px;
-  transition: all .7s ease-in-out;
-  clip-path: circle(75%);
+  clip-path: circle(75% at 50% 50%); /* Expand clip circle on hover */
 }
 
 .slide:hover {
-  transition: all .5s cubic-bezier(.8,.5,.2,1.4);
-  box-shadow: 0px 2px 3px rgba(0,0,0,.3); /* Lighter shadow for hover effect */
-  transform: scale(.97);
+  box-shadow: 0px 2px 3px rgba(0,0,0,.3); /* Lighter shadow on hover */
+  transform: scale(.97); /* Slightly scale down on hover */
 }
 
 .slide:hover img {
-  transition: all .5s cubic-bezier(.8,.5,.2,1.4);
-  transform: scale(1.6) rotate(20deg);
-  filter: blur(3px);
+  transform: scale(1.6) rotate(20deg); /* Rotate and scale image for dramatic effect */
+  filter: blur(3px); /* More pronounced blur effect on hover */
 }
 
 .slide h1 {
-  color: #66FCF1; /* Consistent vibrant red for titles */
+  color: #66FCF1; /* Cyan for slide titles */
   letter-spacing: 1px;
   margin: 0px;
 }
 
 .slide p {
-  line-height: 20px; /* Adjusted line-height */
-  height: 70%;
-  font-size: 12px; /* Smaller font size for cleaner text appearance */
+  line-height: 20px; /* Adjusted line height for better readability */
+  height: 70%; /* Limit height to prevent overflow */
+  font-size: 12px; /* Smaller font size for clean appearance */
 }
 
 h2 {
-  text-align: center;
-  color: #66FCF1; /* Accent Cyan for headings to stand out */
-  margin: 0 0 10px; /* Adjusted margin */
+  text-align: center; /* Center alignment for titles */
+  color: #66FCF1; /* Cyan color to stand out against dark background */
+  margin: 0 0 10px; /* Spacing below the title */
 }
 
-/* Reduce gap between sliders */
-.slick-slider {
-  margin-bottom: 10px; /* Adjusted margin */
-}
-
+/* Additional carousel styles */
 .Newcarousel .slide {
-  background-size: cover;
-  background-position: center;
-  margin: 15px; /* Adjust based on your layout */
+  background-size: cover; /* Cover the entire area of the slide */
+  background-position: center; /* Center the background image */
+  margin: 15px; /* Margin around the slide */
 }
 
-/* Ensure the carousel spans the entire width of its container */
 .Newcarousel {
-  margin: 0 auto;
-  width: 90%;
-}
-
-/* Adjust the slick list to ensure it spans the full width */
-.slick-list {
-  margin: 0 -15px; /* Adjust this value based on your actual margins */
-}
-
-/* Optional: Adjustments for slick buttons (prev/next) to ensure they are visible and positioned correctly */
-.slick-prev, .slick-next {
-  color: #66FCF1; /* Accent Cyan for buttons */
-  z-index: 1;
-}
-
-/* If you have control over the aspect ratio, you can explicitly set heights for various breakpoints */
-@media (min-width: 768px) {
-  .Newcarousel .slide {
-    height: 600px; /* Adjust based on your preference */
-  }
-}
-
-.Newcarousel .slide {
-  position: relative;
-  color: #C5C6C7; /* Light Grey adjusted text color */
+  margin: 0 auto; /* Center the carousel on the page */
+  width: 90%; /* Width relative to the container */
 }
 
 .Newcarousel .slide-background {
@@ -292,229 +267,234 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  background-size: cover; /* Ensure the background covers the slide */
+  background-position: center; /* Center the background image */
 }
 
 .Newcarousel .slide-content {
   position: absolute;
-  bottom: 20px; /* Adjust as needed */
-  left: 20px; /* Adjust as needed */
-  right: 20px; /* Ensures padding on the right */
-  text-align: left;
+  bottom: 20px; /* Position content at the bottom */
+  left: 20px; /* Align content from the left */
+  right: 20px; /* Ensure padding on the right */
+  text-align: left; /* Align text to the left */
 }
 
 .Newcarousel .title {
-  margin: 0;
-  color: #66FCF1; /* Accent Cyan for titles within the slides */
+  margin: 0; /* No margin to fit within the content area */
+  color: #66FCF1; /* Cyan color for visibility against the dark background */
 }
 
 .Newcarousel .description {
-  margin-top: 10px; /* Adjust space between title and description */
-  color: #66FCF1; /* Light Grey for descriptions */
+  margin-top: 10px; /* Space between title and description */
+  color: #66FCF1; /* Light grey color for readability */
 }
 
 .Newcarousel .additional-info {
   display: flex;
-  justify-content: space-between; /* Adjusts alignment */
-  margin-top: 10px; /* Space between description and additional info */
-  color: #66FCF1; /* Light Grey for additional info */
+  justify-content: space-between; /* Space out information evenly */
+  margin-top: 10px; /* Space above the additional info */
+  color: #66FCF1; /* Light grey for text to ensure visibility */
 }
 
 .Newcarousel .additional-info > span {
-  flex: 1; /* Adjust as needed */
-  text-align: left; /* Aligns content to the left */
+  flex: 1; /* Allow each piece of info to take up equal space */
+  text-align: left; /* Align text to the left for consistency */
 }
 
-/* General Modal Adjustments for a Netflix-Like Experience */
+/* Styles for modal dialog */
 .modal-dialog {
-  max-width: 60%; /* Offering a bit more space for content */
-  margin: 2vh auto; /* Vertical margin based on viewport height */
+  max-width: 60%; /* Maximum width for large screens */
+  margin: 2vh auto; /* Vertically center with a top and bottom margin based on viewport height */
 }
 
 .modal-content {
-  background-color: #0B0C10; /* Primary Dark as modal background */
-  color: #C5C6C7; /* Light Grey for text contrast */
-  border: none; /* Removing default borders */
+  background-color: #0B0C10; /* Dark background for modal content */
+  color: #C5C6C7; /* Light grey text for readability */
+  border: none; /* No border for a clean appearance */
 }
 
 .modal-header, .modal-footer {
-  border-bottom: 1px solid #1F2833; /* Secondary Dark Blue for subtle borders */
-  background-color: #0B0C10; /* Primary Dark consistent with the modal background */
-  color: #66FCF1; /* Accent Cyan for a pop of color in text */
+  border-bottom: 1px solid #1F2833; /* Subtle border for separation */
+  background-color: #0B0C10; /* Consistent dark background */
+  color: #66FCF1; /* Cyan text for a pop of color */
 }
 
 .modal-title {
-  display: none; /* Hiding the title for a more immersive poster display */
+  display: none; /* Hide the default modal title for a cleaner appearance */
 }
 
-/* Poster Image Styling */
+/* Styling for posters within modals */
 .poster-wrapper {
-  width: 100%; /* Full width for a more immersive experience */
-  overflow: hidden; /* Cleanly hides overflow */
-  position: relative; /* Establishes a positioning context */
-  margin-bottom: 20px; /* Spacing between poster and details */
-  display: flex;
+  width: 100%; /* Full width to utilize available space */
+  overflow: hidden; /* Hide overflow to maintain layout integrity */
+  position: relative; /* Positioning context for child elements */
+  margin-bottom: 20px; /* Space below the poster for additional content */
 }
+
 .poster-title {
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color: rgba(11, 12, 16, 0.75); /* Semi-transparent overlay using Primary Dark */
-  color: #66FCF1; /* Accent Cyan for poster title */
-  padding: 5px 10px; /* Padding around the text */
-  margin: 10px; /* Margin from the edges of the wrapper */
-  font-size: 20px; /* Large font for visibility */
-  border-radius: 5px; /* Rounded corners for the background */
-}
-.modal-poster-img {
-  width: 100%;
-  height: auto; /* Maintains aspect ratio */
-  object-fit: cover; /* Ensures cover fit within the container without distortion */
+  background-color: rgba(11, 12, 16, 0.75); /* Dark overlay for text visibility */
+  color: #66FCF1; /* Cyan text for contrast and visibility */
+  padding: 5px 10px; /* Padding around the text for readability */
+  margin: 10px; /* Offset from the edges */
+  font-size: 20px; /* Large font size for clear visibility */
+  border-radius: 5px; /* Rounded corners for a polished look */
 }
 
-/* Details and Description Styling */
+.modal-poster-img {
+  width: 100%;
+  height: auto; /* Auto height to maintain aspect ratio */
+  object-fit: cover; /* Ensure the image covers the area */
+}
+
+/* Styles for details and descriptions in the modal */
 .modal-details {
   display: flex;
-  justify-content: center; /* Keeps left and right details apart */
+  justify-content: center; /* Center the details horizontally */
 }
 
 .detail-label {
-  font-weight: bold; /* Make labels bold */
+  font-weight: bold; /* Bold font for labels to stand out */
   margin-right: 10px; /* Space between label and value */
-  white-space: nowrap; /* Prevents the label from wrapping */
-  color: #66FCF1; /* Accent Cyan for labels */
+  white-space: nowrap; /* Prevent labels from wrapping */
+  color: #66FCF1; /* Cyan color for labels */
 }
 
 .detail-value {
-  text-align: left; /* Ensure values are left-aligned */
-  flex: 1; /* Allows the value to expand and fill the available space */
-  color: #66FCF1; /* Light Grey for values */
+  text-align: left; /* Align values to the left */
+  flex: 1; /* Allow values to fill the available space */
+  color: #66FCF1; /* Light grey for readability */
 }
 
 .modal-details-left, .modal-details-right {
-  flex: 1;
+  flex: 1; /* Each side takes up half the space */
 }
 
 .modal-details-right {
-  text-align: left; /* Aligns text to the right */
-  padding-left: 650px; /* Adjustment for padding */
+  text-align: left; /* Ensure text aligns to the left */
+  padding-left: 650px; /* Left padding for spacing */
 }
 
 .modal-details-left p, .modal-details-right p {
-  margin: 8px 0; /* Increased spacing for readability */
-  color: #66FCF1; /* Light Grey for paragraphs */
+  margin: 8px 0; /* Vertical spacing for paragraphs */
+  color: #66FCF1; /* Light grey for readability */
 }
 
 .modal-description {
-  font-size: 16px; /* Slightly larger font for readability */
-  padding: 10px 0; /* Adjusted padding for compactness */
-  color: #66FCF1; /* Light Grey for modal description */
+  font-size: 16px; /* Slightly larger font for easier reading */
+  padding: 10px 0; /* Padding above and below for spacing */
+  color: #66FCF1; /* Light grey for text */
 }
 
-/* Footer Styling for a Consistent Look */
+/* Styling for the modal footer */
 .modal-footer {
   flex-direction: column;
-  align-items: flex-start; /* Aligns footer content to the start */
-  padding: 20px; /* Sufficient padding for separation */
-  color: #66FCF1; /* Accent Cyan for footer text */
+  align-items: flex-start; /* Align items to the start of the footer */
+  padding: 20px; /* Padding inside the footer */
+  color: #66FCF1; /* Cyan for text */
 }
-
 
 .modal-footer p {
-  margin: 4px 0; /* Tighter margin for a compact footer */
+  margin: 4px 0; /* Small margin for tight layout */
 }
 
-/* Responsive Adjustments */
+/* Responsive adjustments for different screen sizes */
 @media (max-width: 992px) {
   .modal-dialog {
-    max-width: 75%; /* Allows the modal to be slightly wider on smaller screens */
+    max-width: 75%; /* Allow the modal to be slightly wider on smaller screens */
   }
 }
 
 @media (max-width: 576px) {
   .modal-dialog {
-    max-width: 90%; /* Utilizes more screen space for very small devices */
+    max-width: 90%; /* Maximize modal width on very small devices */
   }
 
   .modal-details {
-    flex-direction: column; /* Stacks details vertically for space efficiency */
-    align-items: center; /* Centers the details */
+    flex-direction: column; /* Stack details vertically */
+    align-items: center; /* Center items in the modal */
   }
 
   .modal-details-left, .modal-details-right {
-    text-align: center; /* Centers text in the detail sections */
-    margin-bottom: 10px; /* Adds bottom margin for separation */
+    text-align: center; /* Center text for a uniform appearance */
+    margin-bottom: 10px; /* Bottom margin for separation */
   }
 
   .modal-footer {
-    align-items: center; /* Centers footer content */
+    align-items: center; /* Center items in the footer */
   }
 }
 
 .modal-footer p {
-  margin: 4px 0; /* Tighter margin for a compact footer */
+  margin: 4px 0; /* Maintain tight layout in the footer */
 }
 
-/* Responsive Adjustments */
+/* Additional responsive adjustments */
 @media (max-width: 992px) {
   .modal-dialog {
-    max-width: 75%; /* Allows the modal to be slightly wider on smaller screens */
+    max-width: 75%; /* Allow the modal to be slightly wider on medium screens */
   }
 }
 
 @media (max-width: 576px) {
   .modal-dialog {
-    max-width: 90%; /* Utilizes more screen space for very small devices */
+    max-width: 90%; /* Allow the modal to occupy more space on small screens */
   }
 
   .modal-details {
-    flex-direction: column; /* Stacks details vertically for space efficiency */
-    align-items: center; /* Centers the details */
+    flex-direction: column; /* Stack details vertically for better readability */
+    align-items: center; /* Center details for consistency */
   }
 
   .modal-details-left, .modal-details-right {
-    text-align: center; /* Centers text in the detail sections */
-    margin-bottom: 10px; /* Adds bottom margin for separation */
+    text-align: center; /* Center text for uniformity */
+    margin-bottom: 10px; /* Add space between stacked elements */
   }
 
   .modal-footer {
-    align-items: center; /* Centers footer content */
+    align-items: center; /* Center elements within the footer */
   }
 }
+
+/* Styles for overlay within poster containers */
 .poster-container .image-overlay {
   position: relative;
-  display: inline-block;
+  display: inline-block; /* Inline-block for layout purposes */
 }
 
+/* Styling for movie posters within containers */
 .poster-container img.movie-poster {
-  display: block; /* Ensures img takes full width of its container */
-  width: 100%; /* Ensures img is responsive within its container */
+  display: block; /* Ensure the image is displayed as a block for layout purposes */
+  width: 100%; /* Full width to ensure it covers the container */
 }
 
-.media-type-label{
+/* Styles for labels indicating media type */
+.media-type-label {
   position: absolute;
   padding: 2px 5px;
-  font-size: 12px;
-  color: white;
-  border-radius: 0 5px; /* Adjusted for both labels */
+  font-size: 12px; /* Small font size for labels */
+  color: white; /* White text for visibility */
+  border-radius: 0 5px; /* Rounded corners on one side */
 }
 
+/* Styles for labels indicating ratings */
 .rating-label {
   position: absolute;
   padding: 2px 5px;
-  font-size: 14px;
-  color: black;
-  border-radius: 0 5px; 
+  font-size: 14px; /* Slightly larger font size for ratings */
+  color: black; /* Black text for contrast */
+  border-radius: 0 5px; /* Rounded corners on one side */
 }
+
 .media-type-label {
   top: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.75); /* Adjust as needed */
+  background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background for label */
 }
 
 .rating-label {
   top: 0;
-  left: 0;
-  
+  left: 0; /* Positioned to the left */
 }
